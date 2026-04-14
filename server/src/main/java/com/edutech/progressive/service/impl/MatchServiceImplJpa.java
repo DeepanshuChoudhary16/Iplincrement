@@ -6,14 +6,20 @@ import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.edutech.progressive.entity.Match;
 import com.edutech.progressive.repository.MatchRepository;
+import com.edutech.progressive.service.MatchService;
+@Service
+public class MatchServiceImplJpa implements MatchService {
 
-public class MatchServiceImplJpa  {
-
-      @Autowired
+     @Autowired
     MatchRepository matchRepository;
+    
+    public MatchServiceImplJpa(MatchRepository matchRepository) {
+        this.matchRepository = matchRepository;
+    }
     List<Match> list = new ArrayList<>();
  
 
@@ -21,29 +27,39 @@ public class MatchServiceImplJpa  {
     { 
         return matchRepository.findAll();  
     }
-    public int  addMatch(Match match)  throws SQLException
+    public Integer addMatch(Match match)  throws SQLException
     {
         list.add(match);
         matchRepository.save(match);
-        return -1;
+        return match.getMatchId();
     }
-    public List<Match> getMatchById(int matchId)  throws SQLException
+    public Match getMatchById(int matchId)  throws SQLException
     {
+        // return matchRepository.findByMatchId(matchId);
         return null;
         
     }
     public void updateMatch(Match match)  throws SQLException
     {
+         Match match2 = matchRepository.findById(match.getMatchId()).get();
+         match2.setFirstTeamId(match.getFirstTeamId());
+         match2.setMatchDate(match.getMatchDate());
+         match2.setMatchId(match.getMatchId());
+         match2.setResult(match.getResult());
+         match2.setSecondTeamId(match.getSecondTeamId());
+         match2.setStatus(match.getStatus());
+         match2.setWinnerTeamId(match.getWinnerTeamId());
     }
     public void deleteMatch(int matchId)  throws SQLException
     {
-         Match match = matchRepository.findById(matchId).get();
-         matchRepository.delete(match);
+         matchRepository.deleteById(matchId);
     }
-    public Match getAllMatchesStatus(String status)  throws SQLException
+    public List<Match> getAllMatchesStatus(String status)  throws SQLException
     {
-          return null;
+        //   return matchRepository.findAllByStatus(status);
+        return null;
     }
+    
    
 
 }

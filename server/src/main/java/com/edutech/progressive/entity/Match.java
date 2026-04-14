@@ -1,3 +1,5 @@
+
+
 package com.edutech.progressive.entity;
 
 import java.util.Date;
@@ -8,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -22,11 +25,15 @@ public class Match {
     @Column(name="match_id")
     private int matchId;
     @Column(name="first_team_id")
-    @ManyToOne(cascade = CascadeType.MERGE)
     private int firstTeamId;
-    @Column(name="second_team_id")
     @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name="first_team_id",insertable = false,updatable = false)
+    private Team firtTeam;
+    @Column(name="second_team_id")
     private int secondTeamId;
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name="second_team_id",insertable = false,updatable = false)
+    private Team secondTeam;
     @Temporal(TemporalType.DATE)
     @Column(name="match_date")
     private Date matchDate;
@@ -34,8 +41,11 @@ public class Match {
     private String result;
     private String status;
     @Column(name="winner_team_id")
-    @ManyToOne
     private int winnerTeamId;
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name="winner_team_id",insertable = false,updatable = false)
+    private Team winnerTeam;
+
     public Match() {
     }
    

@@ -7,6 +7,8 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -63,9 +65,10 @@ public class TeamServiceImplJpa implements TeamService {
         }
     }
 
+    @Transactional
     public void deleteTeam(int teamId) throws SQLException
     {
-        teamRepository.deleteById(teamId);
+        teamRepository.deleteByTeamId(teamId);
 
     }
     public void findById(int teamId) {

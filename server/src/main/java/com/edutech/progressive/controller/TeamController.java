@@ -26,6 +26,7 @@ public class TeamController {
     TeamServiceImplArraylist teamServiceImplArraylist;
     @Autowired
     TeamServiceImplJpa teamServiceImplJpa;
+    @GetMapping
     public ResponseEntity<List<Team>> getAllTeams() throws SQLException {
         
          return new ResponseEntity<>(teamServiceImplJpa.getAllTeams(),HttpStatus.OK);

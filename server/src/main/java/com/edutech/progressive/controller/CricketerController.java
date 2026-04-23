@@ -20,7 +20,7 @@ public class CricketerController {
     @Autowired
     private CricketerServiceImplJpa cricketerService;
 
-    @GetMapping("")
+    @GetMapping
     public ResponseEntity<List<Cricketer>> getAllCricketers() {
         try {
             List<Cricketer> cricketers = cricketerService.getAllCricketers();

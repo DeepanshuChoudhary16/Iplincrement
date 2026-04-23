@@ -1,5 +1,3 @@
-
-
 package com.edutech.progressive.entity;
 
 import java.util.Date;
